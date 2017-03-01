@@ -1,8 +1,4 @@
 <?php
-$database = new PDOdatabase();
-$db = $database->getConnection();
-$pagecontent = new pagecontent($db);
-
 class pagecontent{
     // database connection and table name
     private $conn;
@@ -16,8 +12,22 @@ class pagecontent{
     public function __construct($db){
         $this->conn = $db;
     }
+	
+	// setters and getters
+	public function set_pagetext($pagetext){
+		$this->pagetext = $pagetext;
+	}
+	public function get_pagetext(){
+		return $this->pagetext;
+	}
+	public function set_pagetitle($pagetitle){
+		$this->pagetitle = $pagetitle;
+	}
+	public function get_pagetitle(){
+		return $this->pagetitle;
+	}
     
-	public function readOne(){
+	public function readOne($recid){
     $query = "SELECT
                 *
             FROM
@@ -27,14 +37,12 @@ class pagecontent{
             LIMIT
                 0,1";
     $stmt = $this->conn->prepare( $query );
-    $stmt->bindParam(1, $this->recid);
+    $stmt->bindParam(1, $recid);
     $stmt->execute();
  
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
- 
-    $this->recid = $row['recid'];
-    $this->pagetext = stripslashes($row['pagecontent']);
-    $this->pagetitle = stripslashes($row['pagetitle']);
+    $this->set_pagetext(stripslashes($row['pagecontent']));
+    $this->set_pagetitle(stripslashes($row['pagetitle']));
 	}
 	public function __destruct(){
 		// destroy object

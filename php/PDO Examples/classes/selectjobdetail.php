@@ -206,7 +206,7 @@ class jobcontent{
 				  echo "<p><b>Reference :</b> ".$row['jobRef']."</p>";
 				  echo "<p><b>Salary :</b> ".$row['Salary']."</p>";
 				  echo "<p><b>Hours :</b> ".$row['Hours']."</p>";
-				  echo "<p><b>Closing date :</b> ".$closedate."</p>";
+				  echo "<p><b>Closing date :</b> ".$row['CloseDate']."</p>";
 				  echo "<p class='jobinfolink'><a href='displayjobdetailpage.php?jobID=".$row['jobID']."&filtered=$jobcatID' class='btn btn-info'>View Full Info</a></p>";
 				  echo "<hr>";
                 }
